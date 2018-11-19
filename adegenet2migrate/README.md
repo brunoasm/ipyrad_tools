@@ -6,10 +6,10 @@ Here we will create an input file for migrate-n in the HapMap format.
 See manual for more information:
 <https://peterbeerli.com/programs/migrate/distribution_4.x/migratedoc4.x.pdf>
 
-We will start from a genpop file, filter alleles to only biallelic, then
-to those under hardy-weinberg equilibrium
+We will start from a genpop file, filter out non-biallelic sites, and then
+to those not under Hardy-Weinberg equilibrium.
 
-We will then use a custom function to write the gening object as an
+We will then use a custom function to write the genind object as an
 input file for migrate-n. We will only include in this file sites that
 were sequenced for at least one individual per population.
 
@@ -112,22 +112,6 @@ Now, let’s load required libraries:
 ``` r
 library(adegenet)
 library(pegas)
-```
-
-    ## Loading required package: ape
-
-    ## 
-    ## Attaching package: 'pegas'
-
-    ## The following object is masked from 'package:ape':
-    ## 
-    ##     mst
-
-    ## The following object is masked from 'package:ade4':
-    ## 
-    ##     amova
-
-``` r
 library(dplyr)
 library(stringr)
 ```
@@ -146,8 +130,7 @@ snps = read.genepop('test_data.gen',ncode=3)
     ## 
     ## ...done.
 
-We will filter out non-biallelic SNPs and sites not under HW
-equilibrium:
+We will filter out non-biallelic SNPs and sites not under HW equilibrium:
 
 ``` r
 biallelic_snps = which(snps@loc.n.all == 2) %>% 
