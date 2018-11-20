@@ -52,7 +52,7 @@ genpop2hapmap = function(genpop_obj, project_title = 'MIGRATE'){
   for (i in 1:nrow(snp1_counts_filtered)){
     n_samples = max(sample_sizes_filtered[i,])
     output_string = c(output_string, str_c(n_samples,
-                                           rownames(sample_sizes_filtered)[1],
+                                           rownames(sample_sizes_filtered)[i],
                                            sep = ' '))
     for (j in 1:ncol(snp1_counts_filtered)){
       output_string = c(output_string, str_c(j,
